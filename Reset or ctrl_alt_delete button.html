@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
+<title>Reset or ctrl_alt_delete button</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<p>
+Make a directory /etc/X11/xorg.conf.d/90-zap.conf 
+containing 
+</p>
+
+<p>
+Section "InputClass"
+</p>
+<pre><code>Identifier "keyboard defaults"
+MatchIsKeyboard "on"
+</code></pre>
+<pre><code>Option "XKbOptions" "terminate:ctrl_alt_bksp"
+</code></pre>
+<p>
+EndSection
+</p>
+
+<p>
+the Option "XKbOptions" "terminate:ctrl_alt_bksp" 	
+is the same as running shell command
+</p>
+
+<p>
+setxkbmap -option "terminate:ctrl_alt_bksp"
+</p>
+
+</body>
+</html>

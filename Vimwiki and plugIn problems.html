@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
+<title>Vimwiki and plugIn problems</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<p>
+Vimwiki 2 html only works when it is installed through a plugin manager.
+</p>
+
+<p>
+idk why
+</p>
+
+<p>
+I put the plug.vim (vim plug) in directory 
+~/.config/nvim/autoload/plug.vim
+and it seems to work fine
+</p>
+
+<p>
+Plugins are still installed somewhere else, in .local/share/nvim/
+</p>
+
+<p>
+swap to dev branch to allow the table mappings to be disabled, also consider
+adding line (language is vimscript) to vimwiki.lua 
+</p>
+<pre>
+au filetype vimwiki silent! iunmap &lt;buffer&gt; &lt;Tab&gt;
+</pre>
+
+<p>
+you can change the path Vim-Plug installs plugins by adding this line 
+</p>
+<pre>
+let g:plug_home = '/home/siddid/.config/nvim/vimPlugPlugins'  
+</pre>
+
+</body>
+</html>

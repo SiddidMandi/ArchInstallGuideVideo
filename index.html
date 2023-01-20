@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
+<title>index</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<div id="Arch Install and tech help"><h1 id="Arch Install and tech help" class="header"><a href="#Arch Install and tech help">Arch Install and tech help</a></h1></div>
+
+<p>
+<a href="Installation guide.html">Installation guide</a>
+consider unstalling vim and making a system link with 
+sudo ln -s /usr/bin/nvim /usr/bin/vim
+vi was uninstalled and a link was made with nvim, vi=nvim now 
+sudo ln -s /usr/bin/nvim /usr/bin/vi
+to remove system links use ls -l /usr/bin/pathToLink
+eg 	ls -l /usr/bin/vi
+and then do rm 		/usr/bin/vi
+</p>
+
+<p>
+Also install os-prober package and run
+sudo os-prober 
+with all things unmounted
+then run 
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+</p>
+
+<div id="Arch Install and tech help-Post Install shit"><h2 id="Post Install shit" class="header"><a href="#Arch Install and tech help-Post Install shit">Post Install shit</a></h2></div>
+<p>
+<a href="Post install configurations.html">Post install configurations</a>
+</p>
+
+<p>
+<a href="Touchpad.html">Touchpad</a>  see ctrl_alt_delete also 
+<a href="Audio.html">Audio</a>
+<a href="Bluetooth.html">Bluetooth</a>
+<a href="Brillo Brightness.html">Brillo Brightness</a>
+<a href="Dwm shit.html">Dwm shit</a> 
+<a href="Login screen.html">Login screen</a> -make .xinitrc executable, chmod +x .xinitrc, auto startx also
+<a href="Slowness on other laptop.html">Slowness on other laptop</a>
+<a href="KdenliveDark.html">KdenliveDark</a>
+<a href="Reset or ctrl_alt_delete button.html">Reset or ctrl_alt_delete button</a>
+<a href="Mounting dual partitions.html">Mounting dual partitions</a>
+<a href="Notifications.html">Notifications</a>
+<a href="Internet.html">Internet</a>
+<a href="Global Dark Theme.html">Global Dark Theme</a>
+<a href="Login Screen Rice.html">Login Screen Rice</a>
+<a href="Cron.html">Cron</a>
+<a href="Copying in Neovim.html">Copying in Neovim</a>
+for ifconfig download net-tools package
+</p>
+
+<p>
+<a href="R programming language packages.html">R programming language packages</a>
+</p>
+
+<p>
+Alacritty config - see yml
+</p>
+
+<p>
+<a href="Things to back up.html">Things to back up</a>
+</p>
+
+<p>
+<a href="Vimwiki and plugIn problems.html">Vimwiki and plugIn problems</a>
+To make vim macros play faster consider using :set lazyredraw
+</p>
+
+<p>
+tar xvfz filename.tar.gz
+</p>
+
+<div id="The shell swapping"><h1 id="The shell swapping" class="header"><a href="#The shell swapping">The shell swapping</a></h1></div>
+<p>
+<a href="zsh.html">zsh</a>
+</p>
+
+<div id="Phone shit"><h1 id="Phone shit" class="header"><a href="#Phone shit">Phone shit</a></h1></div>
+<p>
+first unlock boot loader using respective tools
+after
+</p>
+
+<p>
+<a href="MTP protocol.html">MTP protocol</a>
+</p>
+
+</body>
+</html>

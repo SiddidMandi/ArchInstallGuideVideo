@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
+<title>R programming language packages</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<p>
+to install packages on arch linux u need to add 2 new pacman packages to allow
+R commands install.packages() to run properly
+</p>
+
+<p>
+sudo pacman -S tcl tk
+</p>
+
+<p>
+packages are stored in /tmp/RtmpSX.../downloaded_packages
+</p>
+
+<p>
+use commands 
+capabilities("tcltk")
+even if it runs true first, try the pacman command first
+</p>
+
+</body>
+</html>

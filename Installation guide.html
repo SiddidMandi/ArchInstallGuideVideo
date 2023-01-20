@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
+<title>Installation guide</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<div id="Pre-requisits"><h1 id="Pre-requisits" class="header"><a href="#Pre-requisits">Pre-requisits</a></h1></div>
+<p>
+Boot mint first
+Knowledge of partitions and hard disk names
+</p>
+
+<div id="Internet"><h1 id="Internet" class="header"><a href="#Internet">Internet</a></h1></div>
+<p>
+help
+iwctl 
+iwctl device list 	lists interfaces
+station wlan0 scan
+station wlan0 get-networks
+station wlan0 connect &lt;name&gt; 
+	it asks for passphrase
+</p>
+
+<div id="Initial steps"><h1 id="Initial steps" class="header"><a href="#Initial steps">Initial steps</a></h1></div>
+<p>
+timedatectl set-ntp true
+</p>
+
+<div id="Formatting Disks"><h1 id="Formatting Disks" class="header"><a href="#Formatting Disks">Formatting Disks</a></h1></div>
+<p>
+lsblk
+shows disks and devices attached
+</p>
+
+<p>
+Make sure boot disk is FAT32, it should also be EFI, not linux file system
+</p>
+
+<p>
+-Disk Commands-
+lsblk   			this lists the partitioned devices you have
+cfdisk /dev/nvme0n1p1 		make sure the boot one is not linux file system,
+it has to be efi boot,
+mkfs.fat -F32 /dev/nvme0n1p1 	do this to boot partition
+</p>
+
+<p>
+mkdir /mnt
+mount /dev/nvme0n1p2 /mnt 	the main one, NOT the boot one
+mkdir /mnt/boot
+mkdir /mnt/boot/EFI
+mount /dev/nvme0n1p1 /mnt/boot/EFI 	the small boot one to here
+</p>
+
+<p>
+now a quick lil hint here, if you can't edit the partition as it is 'read only'
+use this command 
+</p>
+
+<p>
+mount t-o remount,rw /dev/nvme0n1p1 /mnt/boot/efi 
+or whichever partitoin you are having problems with 
+</p>
+
+<p>
+once partitions are formatted and mounted, its time to actually install it all
+but we do some things before
+</p>
+
+<p>
+pacman -Sy archlinux-keyring
+this should do the trick but incase here are some extra commands
+</p>
+
+<p>
+pacman-key --populate archlinux
+pacman-key --refresh-keys
+pacman -Syu
+this will prevent errors like "failed to install package...is marginal trust"
+</p>
+
+<p>
+pacstrap &lt;destination&gt; &lt;packages&gt;
+pacstrap /mnt base base-devel linux-lts linux-lts-headers linux-firmware vim
+yk what vim is, I won't get into that shit here. Vim only
+</p>
+
+<p>
+Gen the fstab, this contains the drives linux will look for on boot
+gen fstab -U
+gen fstab -U /mnt &gt;&gt; /mnt/etc/fstab
+the -U option chooses to use the UUID instead of name, which is far more unique
+and never changes
+</p>
+
+<p>
+ok you installed arch, now lets chroot right in and make some pre boot
+configurations. Dont skip this step cuz we still need to install grub ok.
+</p>
+
+<div id="chroot right in"><h1 id="chroot right in" class="header"><a href="#chroot right in">chroot right in</a></h1></div>
+<p>
+arch-chroot /mnt /bin/bash
+ok now you are in the new system and time to make some pre install configs
+go ahead and type ls, this will show you familiar directories
+</p>
+
+<p>
+pacman -S networkmanager grub neofetch
+</p>
+
+<p>
+sudo systemctl enable NetworkManager
+</p>
+
+<p>
+grub-install /dev/nvme0n1p1 	the smaller boot partition
+grub-mkconfig -o /boot/grub/grub.cfg
+</p>
+
+<p>
+make sure it says "found linux image" and all, if not you probably skipped the
+most important step, which is pacstrap installing it all.
+</p>
+
+<p>
+now here just do this:
+cd root
+touch .vimrc
+vim .vimrc 
+and add these lines
+</p>
+<pre>
+syntax on
+set number
+inoremap kj &lt;Esc&gt;
+set mouse=a
+</pre>
+<p>
+this will make text editing waaay easier and reduce chances of syntax errors
+which might cause depression
+</p>
+
+<p>
+vim /etc/default/grub
+uncomment "GRUB_DISABLE_OS_PROBER=false"
+pattern search for it using /, see this is also an excellent vim tutorial
+</p>
+
+<p>
+passwd
+set a password
+</p>
+
+<p>
+vim /etc/locate.gen
+here select the language, on vim pattern search for en_US 
+and uncomment out the 2 lines. The #s are comments
+</p>
+
+<p>
+en_US.UTF-8 UTF-8
+en_US ISO-8859-1
+is what the lines should look like
+:wq that shit
+</p>
+
+<p>
+now run 
+locale-gen
+</p>
+
+<p>
+vim /etc/locale.conf
+type
+LANG=en-US.UTF-8
+:wq that shit 
+</p>
+
+<p>
+vim /etc/hostname 
+set host name here
+</p>
+
+<p>
+ln -sf /usr/share/zoneinfo/Singapore /etc/localtime
+this system link basically connects the correct timezone to your time file
+also create another useful system link, some thins like cronie and all still use
+vi, so just make a system link for vim to vi 
+</p>
+
+<p>
+sudo ln -s /usr/bin/vim /usr/bin/vi
+this basically means everytime something tries to use vi, it will use vim
+</p>
+
+<p>
+ok now reboot and login
+</p>
+
+<p>
+and now the moment you have all been waiting for:
+neofetch
+</p>
+
+<p>
+just don't become a salty misagynistic reddit mod who is fat af, never touches
+grass, wears a fedora, can't do pullups and never touches grass.
+</p>
+
+<p>
+Booting arch doesn't have to mean you are an obnoxious cunt... Honestly there
+isn't much to 'booting arch', this is actually a meme invented my retarded
+apple users who fear competency with technology.
+</p>
+
+<p>
+I might make more videos on how to patch dwm and all, but I believe there are
+better videos on it out there, 
+</p>
+
+<p>
+and there is chatGPT... Boi that thing can literally write all your shell
+scripts for you...
+</p>
+
+</body>
+</html>

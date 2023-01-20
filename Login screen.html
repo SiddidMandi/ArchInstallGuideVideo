@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
+<title>Login screen</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<p>
+install a Log in manager called Ly
+</p>
+
+<p>
+go into directory 
+</p>
+
+<p>
+/usr/share/xsessions 
+</p>
+
+<p>
+(touch dwm.desktop)
+nvim dwm.desktop
+</p>
+
+<p>
+change Type to 'Application'
+</p>
+
+<p>
+change Exec=dwm to 
+Exec=/usr/share/bin/dwm
+</p>
+
+<p>
+fuck Ly 
+use lemurs
+</p>
+
+
+<p>
+make sure u have rust-toolkit installed
+git clone lemurs-git 
+</p>
+
+<p>
+makepkg -si 
+</p>
+
+<p>
+sudo systemctl enable lemurs.service
+</p>
+
+<p>
+auto startx 
+</p>
+<pre>
+if [ -z "${DISPLAY}" ] &amp;&amp; [ "${XDG_VTNR}" -eq 1 ]; then
+  exec startx
+fi
+</pre>
+
+</body>
+</html>

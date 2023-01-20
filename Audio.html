@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
+<title>Audio</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<p>
+first install 
+pacman -S sof-firmware 
+</p>
+
+<p>
+<a href="https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture">https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture</a>
+look at 1.6 ALSA firmware
+then install 
+pacman -S pipewire-pulse pipewire pavucontrol 
+</p>
+
+<p>
+tried wireplumber, still crashes frequently.
+</p>
+
+<p>
+libpulse 
+pipewire 
+pipewire-pulse
+pipewire-audio
+libwireplumber
+wireplumber
+</p>
+
+<p>
+pulse audio works but the keybinds don't
+change the sinks
+use 
+pacmd list-sinks
+pactl list sinks short
+will show which ones are idle and active, use the active index when playing
+audio
+and experiment with different indicies, for me the
+correct one is 3 
+in keybinds specify the index
+</p>
+
+<p>
+nope still not working.
+went to /etc/modprob.d/alsa-base.conf 
+and added line snoop=0
+</p>
+
+<p>
+found temporary resonable fix: use pulseaudio library only 
+pause all audio
+use commands 
+pulseaudio -k 
+to kill client
+pulseaudio -D
+to start it again, usually works
+also try deleting pulse config file in ~/.config/pulse
+go to client.conf in /etc/pulse 
+and add command 
+autospawn = yes
+it is commented out using ; or #
+</p>
+
+<div id="pipewire maybe"><h2 id="pipewire maybe" class="header"><a href="#pipewire maybe">pipewire maybe</a></h2></div>
+<p>
+try 
+systemctl --user restart wireplumber pipewire pipewire-pulse 
+systemctl --user restart wireplumber.service pipewire pipewire-pulse 
+to restart pipewire and all, 
+</p>
+
+<div id="Useful Commands"><h1 id="Useful Commands" class="header"><a href="#Useful Commands">Useful Commands</a></h1></div>
+<pre>
+pactl list sinks | grep '^[[:space:]]Volume:' | \
+    head -n $(( $SINK + 1 )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,'
+</pre>
+<p>
+change the <code>\(SINK + 1 </code> to <code>\)SINK + 4</code>, as the 4th sink is your default,
+the sink
+value is originally 0
+that gives volume, this will tell if they are muted or not 
+</p>
+<pre>
+pacmd list-sinks | awk '/muted/ { print $2 }'
+</pre>
+
+</body>
+</html>
